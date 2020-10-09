@@ -41,11 +41,11 @@ void Graph::update(size_t dataIndex) {
 void Graph::update(size_t dataNum, size_t dataIndex) {
 	int x = 0;
 	for (int i = dataIndex; i < canvasWidth; i++) {
-		frameBuffer[screenWidth * (offsetY + dataBuffer[dataNum][i]) + offsetX + x] = dataColor[dataNum];
+		frameBuffer[screenWidth * (offsetY + (canvasHeight - 1 - dataBuffer[dataNum][i])) + offsetX + x] = dataColor[dataNum];
 		x += 1;
 	}
 	for (int i = 0; i < dataIndex; i++) {
-		frameBuffer[screenWidth * (offsetY + dataBuffer[dataNum][i]) + offsetX + x] = dataColor[dataNum];
+		frameBuffer[screenWidth * (offsetY + (canvasHeight - 1 - dataBuffer[dataNum][i])) + offsetX + x] = dataColor[dataNum];
 		x += 1;
 	}
 }
