@@ -12,7 +12,7 @@ extern "C" {
 void app_main();
 }
 
-uint8_t buffer1[320], buffer2[320];
+uint8_t buffer[640];
 
 void app_main() {
 	LCD::ILI9341 *lcd = new LCD::ILI9341();
@@ -20,15 +20,15 @@ void app_main() {
 	for (int i = 0; i < 320; i++) {
 		int v = i * 4;
 		while (v >= 240) v -= 240;
-		buffer1[i] = v;
-		buffer2[i] = 239 - v;
+		buffer[i] = v;
+		buffer[i + 320] = 239 - v;
 	}
 
 	xTaskCreatePinnedToCore([](void *lcd_p) {
 		LCD::ILI9341 *lcd = (LCD::ILI9341 *)lcd_p;
 		Graph *graph	   = new Graph(lcd->getBuffer(), 320, 240, 0, 0, 320, 240, 0x0000);
-		graph->add(buffer1, 0xffff);
-		graph->add(buffer2, LCD::GREEN);
+		graph->add(&buffer[0], 0xffff);
+		graph->add(&buffer[320], LCD::GREEN);
 
 		while (true) {
 			vTaskDelay(100);

@@ -14,6 +14,8 @@ Graph::Graph(uint16_t* buffer, size_t screenWidth, size_t screenHeight, size_t x
 	this->canvasHeight = canvasHeight;
 
 	this->backgroundColor = backgroundColor;
+
+	dataCount = 0;
 }
 
 void Graph::clear() {
